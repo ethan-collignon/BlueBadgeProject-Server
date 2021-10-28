@@ -6,13 +6,15 @@
     app.use(Express.json());
 
    const controllers = require("./controllers");
+   const middleware = require("./middleware");
 
-    app.use(require("./middleware/validate-jwt"))
-    app.use("/review", controllers.reviewController);
     app.use("/user", controllers.userController);
+    app.use(middleware.validateSession);
+    app.use("/review", controllers.reviewController);
+    
 
     dbConnection.authenticate()
-    .then(() => dbConnection.sync({alter: true}))
+    .then(() => dbConnection.sync())
     .then(() => {
         app.listen(3001, () => {
             console.log(`[Server]: App is listening on 3001`);
@@ -21,4 +23,5 @@
     .catch((err) => {
         console.log(`[Server]: Server crashed. Error = ${err}`);
     });
-     
+
+app.use(middleware.CORS);    
