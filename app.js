@@ -5,11 +5,12 @@
 
     app.use(Express.json());
 
-   const controllers = require("./controllers");
+const controllers = require("./controllers");
+const middleware = require("./middleware");
 
-    app.use(require("./middleware/validate-jwt"))
-    app.use("/review", controllers.reviewController);
-    app.use("/user", controllers.userController);
+   app.use("/user", controllers.userController);
+   app.use(middleware.validateSession);
+   app.use("/review", controllers.reviewController);
 
     dbConnection.authenticate()
     .then(() => dbConnection.sync({alter: true}))
@@ -22,3 +23,5 @@
         console.log(`[Server]: Server crashed. Error = ${err}`);
     });
      
+
+app.use(middleware.CORS);
