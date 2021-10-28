@@ -28,32 +28,9 @@
       ReviewModel.create(reviewEntry)
     });
       
-//Get All Reviews//
-     router.get("/", async (req, res) => {
-         try {
-            const entries = await ReviewModel.findAll();
-            res.status(200).json(entries);
-          } catch (err) {
-            res.status(500).json({ error: err });
-          }
-        });
 
-//Get reviews by user//
-  //?Placeholder 
-    router.get("/mine", validateJWT, async (req, res) => {
-          let { id } = req.user;
-          try {
-            const userReviews = await ReviewModel.findAll({
-              where: {
-                user: id, //!Doesn't return individual user review
-              }
-            });
-            res.status(200).json(userReviews);
-          } catch (err) {
-            res.status(500).json({ error: err });
-          }
-        });
-    //?Placeholder
+
+
 
 
 
