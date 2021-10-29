@@ -5,8 +5,7 @@
        if (req.method == "OPTIONS") {
          next(); 
        } else if (
-         req.headers.authorization &&
-         req.headers.authorization.includes("Bearer")
+         req.headers.authorization
       ) {
         const { authorization } = req.headers;
         console.log("authorization -->", authorization);

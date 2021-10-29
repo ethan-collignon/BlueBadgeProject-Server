@@ -2,14 +2,15 @@
   const Express = require('express');
   const app = Express();
   const dbConnection = require("./db");
+  const middleware = require("./middleware");
+  app.use(require('./middleware/headers'));
 
-    app.use(Express.json());
 
    const controllers = require("./controllers");
-   const middleware = require("./middleware");
+   app.use(Express.json());
+   
 
     app.use("/user", controllers.userController);
-    app.use(middleware.validateSession);
     app.use("/review", controllers.reviewController);
     
 
