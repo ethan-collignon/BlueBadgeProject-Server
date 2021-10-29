@@ -10,8 +10,10 @@ require("dotenv").config();
    app.use(Express.json());
 
 
+
     app.use("/user", controllers.userController);
     app.use("/review", controllers.reviewController);
+
 
 
     dbConnection.authenticate()
@@ -26,3 +28,5 @@ require("dotenv").config();
     });
 
 app.use(middleware.CORS);
+
+
