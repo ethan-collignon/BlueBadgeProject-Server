@@ -6,7 +6,7 @@
          next(); 
        } else if (
          req.headers.authorization &&
-         req.headers.authorization.includes("Bearer")
+         req.headers.authorization.includes("Bearer") //might need to take this out
       ) {
         const { authorization } = req.headers;
         console.log("authorization -->", authorization);
