@@ -1,6 +1,5 @@
 const Express = require('express');
 const router = Express.Router();
-
 const { ReviewModel } = require('../models');
 
 //Review Create//
@@ -12,7 +11,7 @@ router.post('/create', async (req, res) => {
     nameOfMovie,
     entry,
     rating,
-    owner: id
+    owner_id: id
   }
   try {
     const newReview = await ReviewModel.create(reviewEntry);
@@ -28,20 +27,21 @@ router.get("/", async (req, res) => {
     const entries = await ReviewModel.findAll();
     res.status(200).json(entries);
   } catch (err) {
-    res.status(500).json({ error: err });
+      res.status(500).json({ error: err });
   }
 });
 
 //Get reviews by user//
 router.get("/:id", async (req, res) => {
-  let { id } = req.user;
+  let { id } = req.params; //changed req.params from req.user
   try {
     const userReviews = await ReviewModel.findAll({
       where: {
         id,
       }
     });
-    res.status(200).json(userReviews);
+    res.status(200)
+    .json(userReviews);
   } catch (err) {
     res.status(500).json({ error: err });
   }
@@ -50,7 +50,7 @@ router.get("/:id", async (req, res) => {
 
     //Review Update//
     router.put("/update/:id", async (req, res) => {
-        const { reviewTitle, nameOfMovie, entry, rating } = req.body.review
+        const { reviewTitle, nameOfMovie, entry, rating } = req.body.review;
         try {
           const updateReview = await ReviewModel.update({ reviewTitle, nameOfMovie, entry, rating },
             { where: {id: req.params.id } })
@@ -67,7 +67,8 @@ router.get("/:id", async (req, res) => {
         try {
             const query = {
                 where: {
-                    id: req.params.id
+                    id: req.params.id,
+                    owner_id: req.user.id
                 }
             }
             await ReviewModel.destroy(query)

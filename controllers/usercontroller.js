@@ -1,6 +1,6 @@
     const router = require("express").Router();
+    const { UserModel } = require("../models");
     const { UniqueConstraintError } = require("sequelize/lib/errors");
-    const { UserModel } = require("../models");
     const jwt = require("jsonwebtoken");
     const bcrypt = require("bcryptjs");
 
