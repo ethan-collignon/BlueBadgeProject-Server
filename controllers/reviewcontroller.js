@@ -1,9 +1,10 @@
 const Express = require('express');
 const router = Express.Router();
 const { ReviewModel } = require('../models');
+const validateJWT = require('../middleware/validate-jwt');
 
 //Review Create//
-router.post('/create', async (req, res) => {
+router.post('/create', validateJWT, async (req, res) => {
   const { reviewTitle, nameOfMovie, entry, rating } = req.body.review;
   const { id } = req.user;
   const reviewEntry = {
@@ -11,7 +12,7 @@ router.post('/create', async (req, res) => {
     nameOfMovie,
     entry,
     rating,
-    owner_id: id
+    id
   }
   try {
     const newReview = await ReviewModel.create(reviewEntry);
@@ -31,9 +32,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-//Get reviews by user//
-router.get("/:id", async (req, res) => {
-  let { id } = req.params; //changed req.params from req.user
+//Get reviews by user//  
+router.get("/:id", validateJWT, async (req, res) => { 
+  let { id } = req.id; //changed req.params from req.user
   try {
     const userReviews = await ReviewModel.findAll({
       where: {
@@ -48,7 +49,7 @@ router.get("/:id", async (req, res) => {
 });
 
 
-    //Review Update//
+    //Review Update// !Can't get this to work in postman
     router.put("/update/:id", async (req, res) => {
         const { reviewTitle, nameOfMovie, entry, rating } = req.body.review;
         try {
@@ -62,7 +63,7 @@ router.get("/:id", async (req, res) => {
         };
       });
 
-    //Review Delete//
+    //Review Delete// !Can't get this to work in postman
     router.delete("/delete/:id", async (req, res) => {
         try {
             const query = {

@@ -1,4 +1,4 @@
-     const jwt = require("jsonwebtoken");
+ const jwt = require("jsonwebtoken");
      const { UserModel } = require("../models");
      
      const validateJWT = async (req, res, next) => {

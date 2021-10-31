@@ -5,11 +5,11 @@
     const bcrypt = require("bcryptjs");
 
 router.post("/register", async(req, res) =>{
-        let { firstName, lastName, email, password } = req.body.user;
+        let { email, password } = req.body.user; //took out firstname/lastname
         try {
             const User = await UserModel.create({
-                firstName,
-                lastName,
+                // firstName, I dont think we need these
+                // lastName,
                 email,
                 password: bcrypt.hashSync(password, 13),
             });

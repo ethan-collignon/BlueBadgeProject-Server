@@ -8,14 +8,11 @@ require("dotenv").config();
 
    const controllers = require("./controllers");
    app.use(Express.json());
-
-
+   
 
     app.use("/user", controllers.userController);
     app.use("/review", controllers.reviewController);
-
-
-
+    
     dbConnection.authenticate()
     .then(() => dbConnection.sync())
     .then(() => {
@@ -26,6 +23,7 @@ require("dotenv").config();
     .catch((err) => {
         console.log(`[Server]: Server crashed. Error = ${err}`);
     });
+
 
 app.use(middleware.CORS);
 
