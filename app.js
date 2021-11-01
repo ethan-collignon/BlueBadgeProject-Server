@@ -12,7 +12,7 @@ require("dotenv").config();
 
 
     app.use("/user", controllers.userController);
-    app.use("/review", controllers.reviewController);
+    app.use("/review", middleware.validateSession, controllers.reviewController);
 
 
 

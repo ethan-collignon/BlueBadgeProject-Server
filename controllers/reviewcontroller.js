@@ -1,10 +1,10 @@
 const Express = require('express');
 const router = Express.Router();
-
+const {validateSession} = require('../middleware');
 const { ReviewModel } = require('../models');
 
 //Review Create//
-router.post('/create', async (req, res) => {
+router.post('/create', validateSession, async (req, res) => {
   const { reviewTitle, nameOfMovie, entry, rating } = req.body.review;
   const { id } = req.user;
   const reviewEntry = {
