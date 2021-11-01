@@ -1,11 +1,11 @@
 const Express = require('express');
 const router = Express.Router();
-
 const { ReviewModel } = require('../models');
 
 //Review Create//
 router.post('/create', async (req, res) => {
   const { reviewTitle, nameOfMovie, entry, rating } = req.body.review;
+  console.log("REQUEST ==>", req.headers.authorization)
   const { id } = req.user;
   const reviewEntry = {
     reviewTitle,
