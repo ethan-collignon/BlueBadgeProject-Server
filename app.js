@@ -19,8 +19,8 @@ require("dotenv").config();
     dbConnection.authenticate()
     .then(() => dbConnection.sync())
     .then(() => {
-        app.listen(3001, () => {
-            console.log(`[Server]: App is listening on 3001`);
+        app.listen(process.env.PORT, () => {
+            console.log(`[Server]: App is listening on ${process.env.PORT}`);
         });
     })
     .catch((err) => {
