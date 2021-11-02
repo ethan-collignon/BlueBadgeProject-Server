@@ -15,7 +15,7 @@
       allowNull: false
      },
      rating: {
-      type: DataTypes.INTEGER(5), //need to rate 1-5, trying this solution
+      type: DataTypes.INTEGER, //need to rate 1-5, trying this solution
       allowNull: false
      }
     });
